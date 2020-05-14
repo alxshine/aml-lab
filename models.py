@@ -11,6 +11,10 @@ def build_mnist_MLP():
     model = Sequential()
     model.add(Input((28, 28, 1)))
 
+    model.add(Flatten())
+    model.add(Dense(100, activation='relu'))
+    model.add(Dense(10, activation='softmax'))
+
     return model
 
 
