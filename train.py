@@ -26,7 +26,7 @@ def train_mnist(epochs, optimizer, loss, metrics=['acc']):
     # get training data
     x_train, y_train, x_test, y_test = data.load_mnist()
     # build model
-    model = models.build_mnist_MLP()
+    model = models.build_mnist_CNN()
 
     # compile model with optimizer, loss, and metrics
     model.compile(optimizer=optimizer, loss=loss, metrics=metrics)
