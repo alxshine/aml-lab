@@ -27,9 +27,16 @@ def build_mnist_CNN():
     model = Sequential()
     model.add(Input((28, 28, 1)))
 
+    model.add(Conv2D(5,3,activation='relu'))
+    model.add(Conv2D(7,3,activation='relu'))
+
+    model.add(Flatten())
+    model.add(Dense(100, activation='relu'))
+    model.add(Dense(10, activation='softmax'))
+
     return model
 
 
 if __name__ == "__main__":
     print('MNIST network summary:')
-    build_mnist_MLP().summary()
+    build_mnist_CNN().summary()
