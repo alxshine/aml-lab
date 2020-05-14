@@ -24,18 +24,24 @@ def train_mnist(epochs, optimizer, loss, metrics=['acc']):
         metrics {list} -- evaluation metrics (default: {['acc']})
     """
     # get training data
+    x_train, y_train, x_test, y_test = data.load_mnist()
     # build model
+    model = models.build_mnist_MLP()
 
     # compile model with optimizer, loss, and metrics
+    model.compile(optimizer=optimizer, loss=loss, metrics=metrics)
 
     # fit model to data
+    model.fit(x_train, y_train, epochs=epochs)
     # evaluate model
+    val_loss, val_metrics = model.evaluate(x_test, y_test)
 
-    # print()
-    # print(f"Validation loss: {val_loss}")
-    # print(f"Validation accuracy: {val_acc}")
+    print()
+    print(f"Validation loss: {val_loss}")
+    print(f"Validation metrics: {val_metrics}")
 
     # save model
+    model.save('/tmp/mnist.h5')
 
 
 def train_mnist_manual(epochs, optimizer, loss, metrics=['acc']):
@@ -72,4 +78,4 @@ def train_mnist_manual(epochs, optimizer, loss, metrics=['acc']):
 
 
 if __name__ == "__main__":
-    train_mnist(1, None, None)
+    train_mnist(3, optimizers.Adam(), losses.CategoricalCrossentropy())
