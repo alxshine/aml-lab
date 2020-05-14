@@ -55,27 +55,39 @@ def train_mnist_manual(epochs, optimizer, loss, metrics=['acc']):
     Keyword Arguments:
         metrics {list} -- evaluation metrics (default: {['acc']})
     """
-    #get training data
+    # get training data
+    x_train, y_train, x_test, y_test = data.load_mnist()
     # build model
+    model = models.build_mnist_CNN()
     # compile model with optimizer, loss, and metrics
+    model.compile(optimizer=optimizer, loss=loss, metrics=metrics)
 
-    # repeat for all epochs:
-    with GradientTape() as tape:
-        pass
-        # get predictions for entire x_train
-        # get loss
-    
-    # calculate gradients for trainable weights in model
-    # apply gradients using optimizer
+    for e in range(epochs):
+        print(f"epoch: {e+1}")
+        # repeat for all epochs:
+        with GradientTape() as tape:
+            pass
+            # get predictions for entire x_train
+            predictions = model(x_train)
+            # get loss
+            epoch_loss = loss(y_train, predictions)
+        
+        # calculate gradients for trainable weights in model
+        # dtarget/dsources
+        weights = model.trainable_weights
+        gradients = tape.gradient(epoch_loss, weights)
+        # apply gradients using optimizer
+        optimizer.apply_gradients(zip(gradients, weights))
     
     # evaluate model
+    val_loss, val_metrics = model.evaluate(x_test, y_test)
 
-    # print()
-    # print(f"Validation loss: {val_loss}")
-    # print(f"Validation accuracy: {val_acc}")
+    print()
+    print(f"Validation loss: {val_loss}")
+    print(f"Validation metrics: {val_metrics}")
 
     # save model
-
+    model.save('/tmp/mnist_manual.h5')
 
 if __name__ == "__main__":
-    train_mnist(3, optimizers.Adam(), losses.CategoricalCrossentropy())
+    train_mnist_manual(3, optimizers.Adam(), losses.CategoricalCrossentropy())
