@@ -14,7 +14,11 @@ def gradients(x, y, pred, gradients):
     fig = plt.figure()
     fig.suptitle(f"True label: {np.argmax(y)}, Prediction: {np.argmax(pred)}, Confidence: {np.max(pred)}")
     plt.subplot(121)
-    plt.imshow(gradients, cmap='coolwarm')
+    if len(gradients.shape) == 4:
+        vis_gradients = gradients[0,:,:,0]
+    else:
+        vis_gradients = gradients
+    plt.imshow(vis_gradients, cmap='coolwarm')
     plt.title("Gradients")
 
     plt.subplot(122)
