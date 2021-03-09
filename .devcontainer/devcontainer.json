@@ -1,0 +1,10 @@
+{
+    "name": "aml-lab",
+    "build": {
+        "dockerfile": "Dockerfile",
+        "context": ".."
+    },
+    "extensions": [
+        "ms-python.python"
+    ]
+}
