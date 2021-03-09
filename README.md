@@ -39,9 +39,8 @@ This executes `setup.py` and installs the required packages.
 The `-e` flag will allow you to make changes to the code.
 
 ### Acquiring the datasets
-For this lab we use [MNIST](http://yann.lecun.com/exdb/mnist) and an email spam detection dataset.
+For this lab we use [MNIST](http://yann.lecun.com/exdb/mnist), because it is small, simple, and easy to get.
 MNIST can be downloaded automatically using TensorFlow utility functions.
-The email spam detection dataset must be downloaded from [the UCI machine learning repository](https://archive.ics.uci.edu/ml/datasets/Spambase) and extracted to `datasets`.
 
 # The Lab Exercise
 To make it easy to follow we split the entire exercise into small individual steps.
@@ -58,8 +57,6 @@ The file `models.py` houses the functions to build the models we need for traini
 These models currently only contain an input layer.
 We will need to add Dense Layers to make the model actually do something meaningful.
 The required layers are already imported.
-
-For now focus on the MNIST model, we will cover the spam model later.
 
 ## Training a neural net using TensorFlow built-in functions
 Open `train.py`, and take a look at the function `train_mnist`
