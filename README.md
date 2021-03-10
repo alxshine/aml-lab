@@ -83,6 +83,21 @@ With these gradients we can change the image such that is misclassified by the n
 
 The code for this can be found in `attack.py`.
 
+## Targeted adversarial samples
+In our untargeted adversarial attack above we moved *away from the correct label*, by adding the gradient instead of subtracting it.
+If we want to perform a targeted attack, we need to do it slightly differently.
+
+First, we generate a new label which is going to be our target.
+As an example, if we want to turn our sample into target class 9 it's going to look like this:
+```
+target_y = np.array([0,0,0,0,0,0,0,0,0,1])
+```
+
+Then we again record the loss and get the gradients for the image, but using our `target_y`.
+Once we have the gradients, we *subtract* them again, just like we would in normal training.
+This is going to cause the image to become more like one in our target class.
+And if it looks enough like a sample from the target class (to our NN), then the attack is successful.
+
 # Feedback
 I hope you have enjoyed this lab and learned something while completing it.
 If you have feedback or encountered a bug, feel free to open up an issue.
